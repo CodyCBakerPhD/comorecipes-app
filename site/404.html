@@ -43,9 +43,9 @@
                 location.replace(`${legacyRecipe[1]}recipe.html?id=${legacyRecipe[2]}${location.hash}`);
                 return;
             }
-            // A project site lives under its first path segment (and a PR preview one level
-            // further down, under pr-preview/pr-<number>/); a root-hosted one under /
-            const siteRoot = path.match(/^\/[^/]+\/(?:pr-preview\/[^/]+\/)?/)?.[0] ?? "/";
+            // The site root is / on its own domain, or /comorecipes-app/ on github.io, with a
+            // PR preview one level further down under pr-preview/pr-<number>/
+            const siteRoot = path.match(/^(?:\/comorecipes-app)?\/(?:pr-preview\/[^/]+\/)?/)?.[0] ?? "/";
             addEventListener("DOMContentLoaded", () => {
                 document.getElementById("index-link").setAttribute("href", `${siteRoot}index.html`);
             });
