@@ -16,23 +16,6 @@ jobs:
       - name: Check out the site
         uses: actions/checkout@v7
 
-      - name: Check out the recipe database
-        uses: actions/checkout@v7
-        with:
-          repository: CodyCBakerPhD/comorecipes-database
-          path: database
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.13"
-
-      - name: Build a bundle from the database checkout
-        run: |
-          pip install pyyaml jsonschema
-          mkdir -p tests/fixtures
-          python database/scripts/build_bundle.py tests/fixtures/database.json.gz database
-
       - name: Set up Node
         uses: actions/setup-node@v5
         with:
@@ -47,6 +30,14 @@ jobs:
 
       - name: Test the data layer
         run: npm test
+
+      # The smoke tests load the pages against the bundle the site itself reads: the one the
+      # database repo publishes on its dist branch after every merge.
+      - name: Fetch the published database bundle
+        run: |
+          mkdir -p tests/fixtures
+          curl -fsSL -o tests/fixtures/database.json.gz \
+            https://raw.githubusercontent.com/CodyCBakerPhD/comorecipes-database/dist/database.json.gz
 
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium

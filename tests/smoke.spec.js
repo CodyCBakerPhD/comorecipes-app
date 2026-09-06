@@ -1,5 +1,5 @@
-// Loads the site in a real browser against a bundle built from the database repo (see the
-// README for how to build tests/fixtures/database.json.gz) and checks that each page renders
+// Loads the site in a real browser against a database bundle at tests/fixtures/database.json.gz
+// (the published one, or one built from a database checkout) and checks that each page renders
 // what the data says it should.
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -17,7 +17,10 @@ const INFLATED_BUNDLE_PATH = "/tests/fixtures/database.json";
 
 if (!existsSync(FIXTURE_GZ)) {
     throw new Error(
-        "Build the fixture bundle first, from a checkout of the database repo:\n" +
+        "Put a database bundle at tests/fixtures/database.json.gz first. The published one:\n" +
+            "  curl -fsSL -o tests/fixtures/database.json.gz " +
+            "https://raw.githubusercontent.com/CodyCBakerPhD/comorecipes-database/dist/database.json.gz\n" +
+            "or one built from a database checkout:\n" +
             "  python <database>/scripts/build_bundle.py tests/fixtures/database.json.gz <database>",
     );
 }
