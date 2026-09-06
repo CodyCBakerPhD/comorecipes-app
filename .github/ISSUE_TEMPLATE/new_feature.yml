@@ -1,0 +1,19 @@
+name: New Feature
+description: Have an idea that you think could help improve the CoMo Recipes App? Let us know!
+labels: ["improvement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Thank you for taking the time to submit this idea!
+
+        By submitting this, you agree to follow our [Code of Conduct](https://github.com/CodyCBakerPhD/comorecipes-app/blob/main/.github/CODE_OF_CONDUCT.md)
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: Idea
+      description: Please explain your idea as clearly as possible. Elaborate on any low-level details you might have considered. Are there any edge cases?
+    validations:
+      required: true

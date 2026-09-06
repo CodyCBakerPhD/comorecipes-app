@@ -1,0 +1,54 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Test the data layer
+        run: npm test
+
+      # The smoke tests load the pages against the bundle the site itself reads: the one the
+      # database repo publishes on its dist branch after every merge.
+      - name: Fetch the published database bundle
+        run: |
+          mkdir -p tests/fixtures
+          curl -fsSL -o tests/fixtures/database.json.gz \
+            https://raw.githubusercontent.com/CodyCBakerPhD/comorecipes-database/dist/database.json.gz
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke test the pages in a browser
+        run: npm run test:e2e
+
+      - name: Keep the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

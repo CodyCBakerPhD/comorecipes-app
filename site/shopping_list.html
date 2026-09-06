@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List · CoMo Recipes</title>
+    <link rel="icon" href="assets/como_icon.ico">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/shell.css">
+    <script src="assets/theme.js"></script>
+    <script type="module">
+        import { startPage } from "./js/app.js";
+        import { buildShoppingListPage } from "./js/pages/shopping_list.js";
+
+        startPage(buildShoppingListPage);
+    </script>
+</head>
+<body class="shopping-page">
+    <p class="shell-status" id="shell-status">Loading the recipes&hellip;</p>
+</body>
+</html>

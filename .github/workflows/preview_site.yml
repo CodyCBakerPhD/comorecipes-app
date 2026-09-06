@@ -1,0 +1,36 @@
+name: Deploy PR preview
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency:
+  group: pages-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy_preview:
+    # Forks cannot push to gh-pages or comment on the PR
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v7
+
+      # Publishes site/ at pr-preview/pr-<number>/ on the gh-pages branch and comments the
+      # link on the PR; the site works at any path prefix, so the preview reads the live
+      # database bundle just like the real thing.
+      - name: Deploy the preview to the gh-pages branch
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: site
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto  # deploy on open/update, remove on close
