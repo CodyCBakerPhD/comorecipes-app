@@ -69,4 +69,4 @@ CI runs all three on every pull request, against the database repo's `main`.
 
 ## Deploying
 
-Pushes to `main` publish `site/` to GitHub Pages through the [deploy workflow](.github/workflows/deploy_site.yml). The repo's Pages source must be set to "GitHub Actions" once, under Settings → Pages.
+Pushes to `main` publish `site/` to GitHub Pages through the [deploy workflow](.github/workflows/deploy_site.yml), which enables Pages for the repo (built by Actions) the first time it runs.
