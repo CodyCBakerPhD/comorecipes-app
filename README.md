@@ -69,4 +69,6 @@ CI runs all three on every pull request, against the database repo's `main`.
 
 ## Deploying
 
-Pushes to `main` publish `site/` to GitHub Pages through the [deploy workflow](.github/workflows/deploy_site.yml). Pages has to be switched on once by hand, under Settings → Pages, with "GitHub Actions" as the source; the workflow's token is not allowed to do that itself.
+Pushes to `main` copy `site/` to the `gh-pages` branch through the [deploy workflow](.github/workflows/deploy_site.yml), and GitHub Pages serves that branch. That is set once by hand, under Settings → Pages: "Deploy from a branch", `gh-pages`, `/ (root)`.
+
+Pull requests get a preview at `https://codycbakerphd.github.io/comorecipes-app/pr-preview/pr-<number>/` from the [preview workflow](.github/workflows/preview_site.yml), which comments the link on the PR and removes the preview when the PR closes. Previews read the live database bundle just like the site itself.

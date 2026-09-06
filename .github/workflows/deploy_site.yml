@@ -1,41 +1,31 @@
-name: Deploy site to GitHub Pages
+name: Deploy site to gh-pages
 on:
   push:
     branches:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: pages
+  group: pages-deploy
   cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out the site
         uses: actions/checkout@v7
 
-      # Pages has to be switched on once by hand (Settings → Pages → Source: GitHub Actions);
-      # the workflow token is not allowed to create the site itself.
-      - name: Set up Pages
-        uses: actions/configure-pages@v5
-
       # There is no build step: site/ is published as it is, and reads the recipe
-      # database bundle at load, so a recipe change never needs a deploy.
-      - name: Upload the site
-        uses: actions/upload-pages-artifact@v3
+      # database bundle at load, so a recipe change never needs a deploy. GitHub Pages
+      # serves the gh-pages branch (Settings → Pages → Deploy from a branch, set once).
+      - name: Publish site/ to the gh-pages branch
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: site
-
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+          folder: site
+          branch: gh-pages
+          clean-exclude: pr-preview  # keep open PR previews alive across deploys
+          force: false
