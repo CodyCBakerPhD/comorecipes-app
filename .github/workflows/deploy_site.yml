@@ -1,22 +1,25 @@
-name: Deploy site to gh-pages
+name: Deploy site to GitHub Pages
 on:
   push:
     branches:
       - main
-  schedule:
-    - cron: "0 9 * * *"  # daily, to pick up changes to the recipe database
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 concurrency:
-  group: pages-deploy
+  group: pages
   cancel-in-progress: false
 
-permissions:
-  contents: write
-
 jobs:
-  build_and_deploy:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Set up Git repository
+      - name: Check out the site
         uses: actions/checkout@v7
