@@ -24,11 +24,10 @@ jobs:
       - name: Check out the site
         uses: actions/checkout@v7
 
+      # Pages has to be switched on once by hand (Settings → Pages → Source: GitHub Actions);
+      # the workflow token is not allowed to create the site itself.
       - name: Set up Pages
         uses: actions/configure-pages@v5
-        with:
-          # Turns Pages on for the repo (built by Actions) the first time this runs
-          enablement: true
 
       # There is no build step: site/ is published as it is, and reads the recipe
       # database bundle at load, so a recipe change never needs a deploy.
