@@ -1,0 +1,63 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v7
+
+      - name: Check out the recipe database
+        uses: actions/checkout@v7
+        with:
+          repository: CodyCBakerPhD/comorecipes-database
+          path: database
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Build a bundle from the database checkout
+        run: |
+          pip install pyyaml jsonschema
+          mkdir -p tests/fixtures
+          python database/scripts/build_bundle.py tests/fixtures/database.json.gz database
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Test the data layer
+        run: npm test
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke test the pages in a browser
+        run: npm run test:e2e
+
+      - name: Keep the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

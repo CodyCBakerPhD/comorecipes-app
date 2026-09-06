@@ -1,0 +1,38 @@
+name: Bug Report
+description: Report a bug in the CoMo Recipes App.
+title: "[Bug]: "
+labels: ["category: bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Thank you for taking the time to fill out this bug report!
+        The following information will help us resolve your issue.
+
+        By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/CodyCBakerPhD/comorecipes-app/blob/main/.github/CODE_OF_CONDUCT.md)
+
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+      description: Please describe the sequence of operations that led to this issue.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Traceback or log file
+      description: An error message or log file should have automatically opened when the error occurred.
+      placeholder: "<--- Copy & paste or directly upload the log file of the error traceback into this window --->"
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - N/A
+        - Windows
+        - macOS (Silicon)
+        - macOS (Intel)
+        - Linux
+      default: 0
