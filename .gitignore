@@ -1,0 +1,16 @@
+# Node
+node_modules/
+
+# Locally built database bundles (see the README) and the smoke tests' fixtures
+/database.json
+/database.json.gz
+/tests/fixtures/
+
+# Playwright output
+/playwright-report/
+/test-results/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
