@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found · CoMo Recipes</title>
+    <style>
+        /* Self-contained: GitHub Pages serves this file at whatever path was missing, so nothing
+           relative can be trusted to resolve. */
+        body {
+            max-width: 36rem;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            text-align: center;
+            color: #2c2519;
+            background: #f6f1e7;
+        }
+
+        a {
+            color: #a84e24;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                color: #ebe3d3;
+                background: #211d15;
+            }
+
+            a {
+                color: #e39a6f;
+            }
+        }
+    </style>
+    <script>
+        // The old build-time site had one page per recipe at formatted_recipes/<stem>.html.
+        // Those links live on in bookmarks and in the redirect from the old address, so send
+        // them to recipe.html?id=<stem>. Anything else gets a link back to the index.
+        (() => {
+            const path = location.pathname;
+            const legacyRecipe = path.match(/^(.*\/)formatted_recipes\/([a-z0-9_]+)\.html$/);
+            if (legacyRecipe != null) {
+                location.replace(`${legacyRecipe[1]}recipe.html?id=${legacyRecipe[2]}${location.hash}`);
+                return;
+            }
+            // The site root is / on its own domain, or /comorecipes-app/ on github.io, with a
+            // PR preview one level further down under pr-preview/pr-<number>/
+            const siteRoot = path.match(/^(?:\/comorecipes-app)?\/(?:pr-preview\/[^/]+\/)?/)?.[0] ?? "/";
+            addEventListener("DOMContentLoaded", () => {
+                document.getElementById("index-link").setAttribute("href", `${siteRoot}index.html`);
+            });
+        })();
+    </script>
+</head>
+<body>
+    <h1>Page not found</h1>
+    <p>There is nothing at this address. <a id="index-link" href="/">Browse the recipe index</a> instead.</p>
+</body>
+</html>
