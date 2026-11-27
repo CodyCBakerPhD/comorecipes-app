@@ -18,7 +18,7 @@ npm run test:chromatic     # the page snapshots, in Chromium (nothing is uploade
 CI uploads two coverage reports to [Codecov](https://codecov.io/gh/CodyCBakerPhD/comorecipes-app) on every push and pull request, and Codecov merges them.
 The `unit` flag is the unit tests' coverage of the data layer, which is all they load (`bundle.js` and `models.js`).
 The `e2e` flag is Chromium's coverage of all of `site/js` while the smoke tests run, collected by `tests/coverage.js`, since the pages, search, list mode and the shopping list only ever run in a browser.
-The upload authenticates with GitHub's OIDC token, so there is no secret to keep; coverage changes are reported on pull requests but never block one (`codecov.yml`).
+The upload uses the `CODECOV_TOKEN` repository secret and fails CI if it does not go through. Codecov comments once on a pull request when coverage changes and posts no status checks (`.github/.codecov.yml`).
 
 ## Visual snapshots
 
