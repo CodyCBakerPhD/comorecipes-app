@@ -1,6 +1,6 @@
 // The chrome every page shares: the top bar, the tag colors, and the line that says which
-// database the page is showing. The class names here and in pages/ are the ones style.css
-// targets, so rename them in both places.
+// database the page is showing. The class names here and in pages/ are the ones the
+// stylesheets (style.css, and shell.css for the database line) target, so rename them together.
 
 /** @typedef {import("./models.js").Database} Database */
 
