@@ -18,8 +18,8 @@ export function setUpSearch() {
         for (const section of sections) {
             let sectionMatches = false;
             for (const item of findElements("li", section)) {
-                const itemTags = (item.dataset.tags || "").split(",");
-                const matchesQuery = (item.textContent ?? "").toLowerCase().includes(query);
+                const itemTags = (item.dataset.tags ?? "").split(",");
+                const matchesQuery = item.textContent.toLowerCase().includes(query);
                 const matchesTags = [...selectedTags].every((tag) => itemTags.includes(tag));
                 const matches = matchesQuery && matchesTags;
                 item.hidden = !matches;

@@ -9,10 +9,8 @@ import { buildDatabase } from "./models.js";
 /** @typedef {import("./models.js").Database} Database */
 
 /**
- * @typedef {object} Page
- * @property {string} title  For document.title
- * @property {string} html  The body's contents
- * @property {() => void} [mount]  Runs once the markup is in the document, to wire up behavior
+ * A rendered page, plus the behavior to wire up once its markup is in the document.
+ * @typedef {import("./layout.js").RenderedPage & { mount?: () => void }} Page
  */
 
 /**

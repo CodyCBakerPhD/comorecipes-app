@@ -164,7 +164,7 @@ export function displayUnit(measurement, database) {
 
 // Units the pages leave unwritten, either because there is none or because the amount
 // already reads naturally without it (e.g. "1 thin spaghetti").
-export const UNWRITTEN_UNITS = new Set(["", "portions"]);
+const UNWRITTEN_UNITS = new Set(["", "portions"]);
 
 /**
  * An amount and its unit as they read on the page: "76 grams", "3 cloves", "1", "enough".
@@ -237,7 +237,7 @@ export function toShoppingRecipe(recipe, database) {
  * @param {string} ingredient
  * @returns {string}
  */
-export function ingredientKeyOf(ingredient) {
+function ingredientKeyOf(ingredient) {
     return ingredient.trim().toLowerCase();
 }
 

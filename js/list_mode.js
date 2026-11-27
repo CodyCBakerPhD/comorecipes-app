@@ -2,11 +2,8 @@
 // hand the selection off to shopping_list.html, which totals up their ingredients.
 
 import { findElements, requireElement } from "./dom.js";
-
-const RECIPES_PARAMETER = "recipes";
-// Shared with shopping_list.js, which keeps both up to date as recipes are dropped there
-const SELECTION_STORAGE_KEY = "como-list-selection";
-const LIST_MODE_STORAGE_KEY = "como-list-mode";
+import { countText } from "./layout.js";
+import { LIST_MODE_STORAGE_KEY, RECIPES_PARAMETER, SELECTION_STORAGE_KEY } from "./selection.js";
 
 export function setUpListMode() {
     const modeToggle = requireElement("#list-mode-toggle");
@@ -26,7 +23,7 @@ export function setUpListMode() {
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.className = "select-recipe";
-        checkbox.setAttribute("aria-label", `Add ${(item.textContent ?? "").trim()} to the shopping list`);
+        checkbox.setAttribute("aria-label", `Add ${item.textContent.trim()} to the shopping list`);
         item.prepend(checkbox);
         checkboxByFileStem.set(item.dataset.fileStem ?? "", checkbox);
 
@@ -67,8 +64,7 @@ export function setUpListMode() {
         const fileStems = selectedFileStems();
         const query = new URLSearchParams({ [RECIPES_PARAMETER]: fileStems.join(",") });
 
-        selectionCount.textContent =
-            fileStems.length === 1 ? "1 recipe selected" : `${fileStems.length} recipes selected`;
+        selectionCount.textContent = `${countText(fileStems.length, "recipe")} selected`;
         buildLink.href = `shopping_list.html?${query}`;
         buildLink.setAttribute("aria-disabled", String(fileStems.length === 0));
 

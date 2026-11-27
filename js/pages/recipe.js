@@ -1,7 +1,7 @@
 // One recipe: its tags, tickable ingredients, notes, numbered instructions, and the
 // cross-links to the recipes it is made from and the recipes made from it.
 
-import { escapeHtml, pageHtml, recipePageUrl, tagHue } from "../layout.js";
+import { RECIPE_PARAMETER, escapeHtml, pageHtml, recipePageUrl, tagHue } from "../layout.js";
 import { amountText, displayUnit } from "../models.js";
 
 /** @typedef {import("../models.js").Database} Database */
@@ -9,8 +9,8 @@ import { amountText, displayUnit } from "../models.js";
 /** @typedef {import("../models.js").Recipe} Recipe */
 /** @typedef {import("../app.js").Page} Page */
 
-// The query parameter naming the recipe to show, by file stem
-export const RECIPE_PARAMETER = "id";
+// The way back to the index, at the head of every recipe page
+const BACK_LINK_HTML = '<a class="back-link" href="index.html">&larr; Recipe Index</a>';
 
 /**
  * Recipe pages link to each other by stem. The links open in a new tab so the reader keeps
@@ -133,7 +133,7 @@ export function renderRecipePage(fileStem, recipe, database) {
 
     return pageHtml({
         title: `${recipe.name} · CoMo Recipes`,
-        topBarActions: ['<a class="back-link" href="index.html">&larr; Recipe Index</a>'],
+        topBarActions: [BACK_LINK_HTML],
         body: `    <main class="recipe">
         <header class="recipe-header">
             <h1>${escapeHtml(recipe.name)}</h1>${tagListHtml(recipe, database)}
@@ -167,7 +167,7 @@ export function renderMissingRecipePage(fileStem) {
     const what = fileStem === "" ? "No recipe was asked for." : `There is no recipe with the id "${escapeHtml(fileStem)}".`;
     return pageHtml({
         title: "Recipe not found · CoMo Recipes",
-        topBarActions: ['<a class="back-link" href="index.html">&larr; Recipe Index</a>'],
+        topBarActions: [BACK_LINK_HTML],
         body: `    <main class="recipe">
         <header class="recipe-header">
             <h1>Recipe not found</h1>

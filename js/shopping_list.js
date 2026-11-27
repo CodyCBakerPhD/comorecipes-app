@@ -3,17 +3,12 @@
 // recipes are dropped or items are ticked off.
 
 import { requireElement } from "./dom.js";
-import { recipePageUrl } from "./layout.js";
+import { countText, recipePageUrl } from "./layout.js";
 import { formatTotalAmount, totalShoppingItems } from "./models.js";
+import { LIST_MODE_STORAGE_KEY, RECIPES_PARAMETER, SELECTION_STORAGE_KEY } from "./selection.js";
 
 /** @typedef {import("./models.js").ShoppingRecipe} ShoppingRecipe */
 /** @typedef {import("./models.js").ShoppingTotal} ShoppingTotal */
-
-const RECIPES_PARAMETER = "recipes";
-// Shared with list_mode.js so the index reopens in list mode with whatever is on this list,
-// however the reader gets back there — the link below, the logo, or the back button.
-const SELECTION_STORAGE_KEY = "como-list-selection";
-const LIST_MODE_STORAGE_KEY = "como-list-mode";
 
 /**
  * @param {Record<string, ShoppingRecipe>} recipesByFileStem
@@ -111,9 +106,8 @@ export function setUpShoppingList(recipesByFileStem) {
         const totalCount = shoppingItems.children.length;
         const remainingCount = totalCount - purchasedIngredientKeys.size;
         const recipeCount = selectedFileStems.length;
-        const recipeText = recipeCount === 1 ? "1 recipe" : `${recipeCount} recipes`;
-        const itemText = totalCount === 1 ? "1 ingredient" : `${totalCount} ingredients`;
-        listSummary.textContent = `${recipeText} · ${itemText} · ${remainingCount} left to buy`;
+        listSummary.textContent =
+            `${countText(recipeCount, "recipe")} · ${countText(totalCount, "ingredient")} · ${remainingCount} left to buy`;
     }
 
     function render() {

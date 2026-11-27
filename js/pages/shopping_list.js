@@ -40,7 +40,7 @@ export function renderShoppingListPage() {
  * @param {Database} database
  * @returns {Record<string, ShoppingRecipe>}
  */
-export function shoppingRecipesByFileStem(database) {
+function shoppingRecipesByFileStem(database) {
     /** @type {Record<string, ShoppingRecipe>} */
     const recipesByFileStem = {};
     for (const [fileStem, recipe] of database.recipes) {
