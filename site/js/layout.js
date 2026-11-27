@@ -5,7 +5,7 @@
 /** @typedef {import("./models.js").Database} Database */
 
 const GITHUB_REPOSITORY_URL = "https://github.com/CodyCBakerPhD/comorecipes-app";
-export const DATABASE_REPOSITORY_URL = "https://github.com/CodyCBakerPhD/comorecipes-database";
+const DATABASE_REPOSITORY_URL = "https://github.com/CodyCBakerPhD/comorecipes-database";
 
 // The GitHub "mark" octicon, inlined so pages have no external image dependencies
 const GITHUB_ICON_PATH =
@@ -40,6 +40,16 @@ export function escapeHtml(text) {
 }
 
 /**
+ * "1 recipe", "3 recipes": a count with its noun, singular only for exactly one.
+ * @param {number} count
+ * @param {string} singular
+ * @returns {string}
+ */
+export function countText(count, singular) {
+    return count === 1 ? `1 ${singular}` : `${count} ${singular}s`;
+}
+
+/**
  * Hues are spread evenly over the alphabetized tag universe so every tag chip gets a distinct color.
  * @param {string} tag
  * @param {Database} database
@@ -50,6 +60,9 @@ export function tagHue(tag, database) {
     return index < 0 ? 0 : Math.floor((index * 360) / database.tags.length);
 }
 
+// The query parameter naming the recipe a recipe page shows, by file stem
+export const RECIPE_PARAMETER = "id";
+
 /**
  * The page a recipe is shown on. Every page sits at the site root, so links are plain
  * relative paths that work under the Pages path prefix.
@@ -57,13 +70,12 @@ export function tagHue(tag, database) {
  * @returns {string}
  */
 export function recipePageUrl(fileStem) {
-    return `recipe.html?id=${encodeURIComponent(fileStem)}`;
+    return `recipe.html?${RECIPE_PARAMETER}=${encodeURIComponent(fileStem)}`;
 }
 
 /**
  * @typedef {object} PageOptions
  * @property {string} title
- * @property {string[]} [scripts]  Kept for parity with the old renderer; the shells load their own modules
  * @property {string} [topBarLead]  Leading top-bar content; defaults to the brand link back to the index
  * @property {string[]} [topBarActions]  Top-bar actions placed before the theme toggle and GitHub link
  * @property {string} body

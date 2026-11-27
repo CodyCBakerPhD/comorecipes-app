@@ -2,46 +2,37 @@
 // (the published one, or one built from a database checkout) and checks that each page renders
 // what the data says it should.
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 
 import { expect, test } from "@playwright/test";
 
 import { buildDatabase, toShoppingRecipe, totalShoppingItems } from "../site/js/models.js";
 import { startCoverage, stopCoverage } from "./coverage.js";
+import { FIXTURE_GZ } from "./global_setup.js";
 
-const FIXTURE_GZ = new URL("./fixtures/database.json.gz", import.meta.url);
-const FIXTURE_JSON = new URL("./fixtures/database.json", import.meta.url);
-// Served by scripts/serve.js from the repo root, alongside the site
+// global_setup.js has already checked that the fixture is there and written its inflated copy.
+// Both are served by scripts/serve.js from the repo root, alongside the site.
 const BUNDLE_PATH = "/tests/fixtures/database.json.gz";
 const INFLATED_BUNDLE_PATH = "/tests/fixtures/database.json";
 
-if (!existsSync(FIXTURE_GZ)) {
-    throw new Error(
-        "Put a database bundle at tests/fixtures/database.json.gz first. The published one:\n" +
-            "  curl -fsSL -o tests/fixtures/database.json.gz " +
-            "https://raw.githubusercontent.com/CodyCBakerPhD/comorecipes-database/dist/database.json.gz\n" +
-            "or one built from a database checkout:\n" +
-            "  python <database>/scripts/build_bundle.py tests/fixtures/database.json.gz <database>",
-    );
-}
 const bundle = JSON.parse(gunzipSync(readFileSync(FIXTURE_GZ)).toString("utf-8"));
-writeFileSync(FIXTURE_JSON, JSON.stringify(bundle));
 const database = buildDatabase(bundle);
 const recipeCount = database.recipes.size;
 
 // A recipe made from another recipe, so both directions of the cross-link can be checked
 const [userStem, components] = [...database.componentRecipes][0];
 const componentStem = [...components.values()][0];
-const userRecipe = database.recipes.get(userStem) ?? fail(`no recipe ${userStem}`);
-const componentRecipe = database.recipes.get(componentStem) ?? fail(`no recipe ${componentStem}`);
+const userRecipe = database.recipes.get(userStem) ?? assert.fail(`no recipe ${userStem}`);
+const componentRecipe = database.recipes.get(componentStem) ?? assert.fail(`no recipe ${componentStem}`);
 
 /**
  * @param {string[]} stems
  * @returns {number}
  */
 function expectedItemCount(stems) {
-    return totalShoppingItems(stems.map((stem) => toShoppingRecipe(database.recipes.get(stem) ?? fail(stem), database)))
+    return totalShoppingItems(stems.map((stem) => toShoppingRecipe(database.recipes.get(stem) ?? assert.fail(stem), database)))
         .length;
 }
 
@@ -161,11 +152,3 @@ test("the theme toggle sticks across loads", async ({ page }) => {
     await page.reload();
     await expect(page.locator("html")).toHaveAttribute("data-theme", theme ?? "");
 });
-
-/**
- * @param {string} message
- * @returns {never}
- */
-function fail(message) {
-    throw new Error(message);
-}

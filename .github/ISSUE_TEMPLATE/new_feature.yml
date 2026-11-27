@@ -1,6 +1,5 @@
 name: New Feature
 description: Have an idea that you think could help improve the CoMo Recipes App? Let us know!
-labels: ["improvement"]
 
 body:
   - type: markdown
