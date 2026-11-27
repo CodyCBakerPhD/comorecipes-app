@@ -117,7 +117,6 @@ h2 {
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
-    font-family: var(--serif);
     font-size: 0.9rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
@@ -131,7 +130,6 @@ h2 {
 
 .brand-logo {
     width: 1.9rem;
-    height: auto;
     border: 1px solid var(--border);
     border-radius: 6px;
 }
@@ -199,14 +197,23 @@ h2 {
     content: var(--theme-toggle-icon);
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover,
+.used-in-list .recipe-link:hover,
+.list-mode-toggle:hover,
+.selection-button:hover,
+.page-button:hover {
     color: var(--accent);
     border-color: var(--accent);
 }
 
 .icon-link:focus-visible,
 .theme-toggle:focus-visible,
-.tag-filter .tag:focus-visible {
+.tag-filter .tag:focus-visible,
+#recipe-search:focus,
+.list-mode-toggle:focus-visible,
+.selection-button:focus-visible,
+.remove-recipe:focus-visible,
+.page-button:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 1px;
 }
@@ -331,7 +338,6 @@ h2 {
 
 .recipe-link {
     color: var(--accent);
-    text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.15em;
@@ -377,11 +383,6 @@ h2 {
     font-family: var(--sans);
     font-size: 0.85rem;
     text-decoration: none;
-}
-
-.used-in-list .recipe-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
 }
 
 /* Notes callout */
@@ -440,7 +441,6 @@ h2 {
     border-radius: 50%;
     background: var(--surface);
     color: var(--accent);
-    font-family: var(--serif);
     font-size: 1rem;
     font-weight: 600;
 }
@@ -456,7 +456,6 @@ h2 {
 
 .site-logo {
     width: 76px;
-    height: auto;
     border: 1px solid var(--border);
     border-radius: 14px;
     margin-bottom: 1.1rem;
@@ -497,11 +496,6 @@ h2 {
 
 #recipe-search::placeholder {
     color: var(--muted);
-}
-
-#recipe-search:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
 }
 
 /* Tag filter: click chips to narrow the index to recipes carrying every selected tag */
@@ -625,23 +619,10 @@ h2 {
     cursor: pointer;
 }
 
-.list-mode-toggle:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-}
-
 .list-mode-toggle[aria-pressed="true"] {
     background: var(--accent);
     border-color: var(--accent);
     color: var(--surface);
-}
-
-.list-mode-toggle:focus-visible,
-.selection-button:focus-visible,
-.remove-recipe:focus-visible,
-.page-button:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
 }
 
 .select-recipe {
@@ -670,7 +651,6 @@ h2 {
     margin: 0;
     padding-left: 0;
     color: var(--ink);
-    cursor: pointer;
 }
 
 .list-mode .letter-section li:hover {
@@ -735,11 +715,6 @@ h2 {
     cursor: pointer;
 }
 
-.selection-button:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
 .build-list {
     background: var(--accent);
     border-color: var(--accent);
@@ -789,10 +764,6 @@ h2 {
     letter-spacing: 0.01em;
 }
 
-.shopping-header .tagline {
-    margin: 0.75rem 0 0;
-}
-
 .shopping-actions {
     display: flex;
     flex-wrap: wrap;
@@ -810,11 +781,6 @@ h2 {
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
-}
-
-.page-button:hover {
-    color: var(--accent);
-    border-color: var(--accent);
 }
 
 .recipe-chips {
@@ -900,12 +866,6 @@ h2 {
     padding-bottom: 0.35rem;
 }
 
-.shopping-item.purchased .ingredient-text {
-    color: var(--muted);
-    text-decoration: line-through;
-    text-decoration-color: var(--muted);
-}
-
 .empty-state {
     margin: 3rem 0;
     text-align: center;
@@ -945,12 +905,10 @@ h2 {
     }
 
     .ingredients {
-        position: static;
         box-shadow: none;
     }
 
-    .step-list li,
-    .letter-section {
+    .step-list li {
         break-inside: avoid;
     }
 
@@ -998,14 +956,12 @@ h2 {
     .recipe-chips {
         gap: 0 0.45rem;
         margin: 0.35rem 0 0;
-        font-size: 14pt;
     }
 
     .recipe-chip {
         padding: 0;
         border: 0;
         background: transparent;
-        font-family: var(--sans);
         font-size: 36pt;
         line-height: 1.15;
     }
