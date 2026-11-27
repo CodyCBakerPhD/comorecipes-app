@@ -13,6 +13,8 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
     reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
+    // Merges the browser coverage the smoke tests collect when COVERAGE is set (tests/coverage.js)
+    globalTeardown: "./tests/coverage.js",
     use: {
         baseURL: `http://127.0.0.1:${PORT}/site/`,
         browserName: "chromium",

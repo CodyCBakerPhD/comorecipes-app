@@ -1,0 +1,25 @@
+# CI uploads two reports per commit (.github/workflows/ci.yml): the unit tests' coverage of the
+# data layer (flag `unit`) and the smoke tests' browser coverage of all of site/js (flag `e2e`).
+# Codecov merges them for the total.
+coverage:
+  status:
+    # Reported on each pull request, but informational: coverage moving is something to look at,
+    # not something that blocks a merge.
+    project:
+      default:
+        informational: true
+    patch:
+      default:
+        informational: true
+
+comment:
+  layout: "condensed_header, diff, flags, files"
+  require_changes: true
+
+flags:
+  unit:
+    paths:
+      - site/js/
+  e2e:
+    paths:
+      - site/js/

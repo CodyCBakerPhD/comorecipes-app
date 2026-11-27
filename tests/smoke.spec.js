@@ -8,6 +8,7 @@ import { gunzipSync } from "node:zlib";
 import { expect, test } from "@playwright/test";
 
 import { buildDatabase, toShoppingRecipe, totalShoppingItems } from "../site/js/models.js";
+import { startCoverage, stopCoverage } from "./coverage.js";
 
 const FIXTURE_GZ = new URL("./fixtures/database.json.gz", import.meta.url);
 const FIXTURE_JSON = new URL("./fixtures/database.json", import.meta.url);
@@ -45,9 +46,14 @@ function expectedItemCount(stems) {
 }
 
 test.beforeEach(async ({ page }) => {
+    await startCoverage(page);
     await page.addInitScript((url) => {
         /** @type {any} */ (globalThis).COMO_BUNDLE_URL = url;
     }, BUNDLE_PATH);
+});
+
+test.afterEach(async ({ page }) => {
+    await stopCoverage(page);
 });
 
 test("the index lists every recipe and says which database it shows", async ({ page }) => {
