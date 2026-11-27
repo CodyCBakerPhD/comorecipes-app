@@ -1,0 +1,43 @@
+/* The few things the old build-time site did not have: the notice shown while the database
+   bundle loads (or when it cannot be), and the line saying which database a page shows.
+   style.css is the old site's stylesheet, copied as is. */
+
+.shell-status {
+    max-width: 36rem;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+    font-family: var(--sans);
+    text-align: center;
+    color: var(--muted);
+}
+
+.shell-status.error {
+    color: var(--accent);
+}
+
+.shell-status a {
+    color: inherit;
+}
+
+.data-version {
+    margin: 3rem 0 1.5rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+.data-version a {
+    color: inherit;
+}
+
+/* The selection bar sits over the bottom of the index in list mode */
+.list-mode .data-version {
+    margin-bottom: 6rem;
+}
+
+@media print {
+    .data-version {
+        display: none;
+    }
+}
