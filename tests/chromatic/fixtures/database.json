@@ -1,0 +1,126 @@
+{
+    "commit": "0000000000000000000000000000000000000000",
+    "generated_at": "2026-01-01T12:00:00Z",
+    "recipes": {
+        "banana_bread": {
+            "name": "Banana Bread",
+            "tags": ["Baking", "Breakfast"],
+            "measurements": [
+                { "amount": "3", "unit": "portions", "ingredient": "bananas", "suffix": ", very ripe" },
+                { "amount": "250", "unit": "grams", "ingredient": "flour" },
+                { "amount": "115", "unit": "grams", "ingredient": "butter", "prefix": "melted" },
+                { "amount": "2", "unit": "portions", "ingredient": "eggs" },
+                { "amount": "5", "unit": "grams", "ingredient": "baking soda" }
+            ],
+            "instructions": [
+                "Heat the oven to 175 C and butter a loaf pan.",
+                "Mash the bananas, then stir in the butter and the eggs.",
+                "Fold in the flour and baking soda until just combined.",
+                "Bake for about an hour, until a skewer comes out clean."
+            ]
+        },
+        "basic_tomato_sauce": {
+            "name": "Basic Tomato Sauce",
+            "tags": ["Sauce", "Vegetarian"],
+            "measurements": [
+                { "amount": "800", "unit": "grams", "ingredient": "crushed tomatoes" },
+                { "amount": "30", "unit": "grams", "ingredient": "olive oil" },
+                { "amount": "3", "unit": "portions", "ingredient": "garlic", "prefix": "minced" },
+                { "amount": "enough", "ingredient": "salt" }
+            ],
+            "instructions": [
+                "Warm the oil and soften the garlic without letting it brown.",
+                "Add the tomatoes and simmer for twenty minutes.",
+                "Season with salt."
+            ],
+            "notes": ["Keeps for a week in the fridge, or three months frozen."]
+        },
+        "chilled_rice": {
+            "name": "Chilled Rice",
+            "tags": ["Component"],
+            "measurements": [
+                { "amount": "300", "unit": "grams", "ingredient": "jasmine rice" },
+                { "amount": "450", "unit": "grams", "ingredient": "water" }
+            ],
+            "instructions": ["Cook the rice in the water.", "Spread it on a tray and chill it overnight, uncovered."]
+        },
+        "fried_rice": {
+            "name": "Fried Rice",
+            "tags": ["Dinner"],
+            "measurements": [
+                { "amount": "600", "unit": "grams", "ingredient": "chilled rice", "recipe": "chilled_rice" },
+                { "amount": "2", "unit": "portions", "ingredient": "eggs" },
+                { "amount": "30", "unit": "grams", "ingredient": "soy sauce" },
+                { "amount": "3", "unit": "portions", "ingredient": "scallions", "suffix": ", sliced thin" },
+                { "amount": "2", "unit": "portions", "ingredient": "garlic", "prefix": "minced" }
+            ],
+            "instructions": [
+                "Scramble the eggs in a hot wok and set them aside.",
+                "Fry the garlic and scallions, then the rice, pressing it against the wok.",
+                "Return the eggs, add the soy sauce, and toss."
+            ]
+        },
+        "garlic_bread": {
+            "name": "Garlic Bread",
+            "tags": ["Side", "Vegetarian"],
+            "measurements": [
+                { "amount": "1", "unit": "portions", "ingredient": "baguette" },
+                { "amount": "60", "unit": "grams", "ingredient": "butter", "suffix": ", softened" },
+                { "amount": "4", "unit": "portions", "ingredient": "garlic", "prefix": "minced" },
+                { "amount": "enough", "ingredient": "parsley", "prefix": "chopped" }
+            ],
+            "instructions": [
+                "Mash the butter with the garlic and parsley.",
+                "Split the baguette, spread it, and bake at 200 C for ten minutes."
+            ]
+        },
+        "overnight_oats": {
+            "name": "Overnight Oats",
+            "tags": ["Breakfast", "Vegetarian"],
+            "measurements": [
+                { "amount": "50", "unit": "grams", "ingredient": "rolled oats" },
+                { "amount": "120", "unit": "grams", "ingredient": "milk" },
+                { "amount": "enough", "ingredient": "maple syrup" }
+            ],
+            "instructions": ["Stir everything together in a jar.", "Refrigerate overnight."]
+        },
+        "roasted_squash_risotto": {
+            "name": "Roasted Butternut Squash and Sage Risotto with Brown Butter",
+            "tags": ["Dinner", "Vegetarian"],
+            "measurements": [
+                { "amount": "600", "unit": "grams", "ingredient": "butternut squash", "suffix": ", peeled and cubed" },
+                { "amount": "300", "unit": "grams", "ingredient": "arborio rice" },
+                { "amount": "1200", "unit": "grams", "ingredient": "vegetable stock", "suffix": ", kept hot" },
+                { "amount": "60", "unit": "grams", "ingredient": "butter" },
+                { "amount": "enough", "ingredient": "sage leaves" }
+            ],
+            "instructions": [
+                "Roast the squash at 200 C until caramelized at the edges.",
+                "Toast the rice, then add the stock a ladle at a time, stirring, until creamy.",
+                "Brown the butter with the sage and spoon it over the risotto and squash."
+            ]
+        },
+        "spaghetti_with_tomato_sauce": {
+            "name": "Spaghetti with Tomato Sauce",
+            "tags": ["Dinner", "Pasta", "Vegetarian"],
+            "measurements": [
+                { "amount": "1", "unit": "portions", "ingredient": "thin spaghetti" },
+                { "amount": "400", "unit": "grams", "ingredient": "tomato sauce", "recipe": "basic_tomato_sauce" },
+                { "amount": "30", "unit": "grams", "ingredient": "parmesan", "prefix": "grated" }
+            ],
+            "instructions": [
+                "Boil the spaghetti in well-salted water until al dente.",
+                "Warm the sauce and toss the drained spaghetti through it.",
+                "Serve with the parmesan."
+            ]
+        }
+    },
+    "ingredients": {
+        "garlic": {
+            "name": "garlic",
+            "default_grams_per_package": 50,
+            "default_package_unit": "bulb",
+            "portions_text": "cloves"
+        }
+    }
+}

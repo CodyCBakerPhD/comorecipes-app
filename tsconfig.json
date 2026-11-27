@@ -14,5 +14,5 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true
   },
-  "include": ["site/js", "scripts", "tests", "playwright.config.js"]
+  "include": ["site/js", "scripts", "tests", "playwright.config.js", "configs", "stories"]
 }
