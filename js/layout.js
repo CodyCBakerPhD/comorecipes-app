@@ -1,6 +1,6 @@
 // The chrome every page shares: the top bar, the tag colors, and the line that says which
-// database the page is showing. The markup matches the old build-time site so style.css
-// keeps working unchanged.
+// database the page is showing. The class names here and in pages/ are the ones the
+// stylesheets (style.css, and shell.css for the database line) target, so rename them together.
 
 /** @typedef {import("./models.js").Database} Database */
 
@@ -25,7 +25,8 @@ const THEME_TOGGLE_HTML =
     '<button class="theme-toggle" type="button" onclick="comoToggleTheme()" aria-label="Toggle color theme"></button>';
 
 /**
- * Mirrors Python's `html.escape` (quote=True), which the original site generator used.
+ * Escapes the five characters that matter in text and attribute values, the way Python's
+ * `html.escape` (quote=True) does.
  * @param {string} text
  * @returns {string}
  */
