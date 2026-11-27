@@ -12,10 +12,6 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      # The Codecov upload authenticates with a GitHub OIDC token instead of a stored secret
-      id-token: write
     steps:
       - name: Check out the site
         uses: actions/checkout@v7
@@ -52,8 +48,7 @@ jobs:
         run: npm run test:e2e:coverage
 
       # One upload per suite, flagged, so Codecov shows what each covers as well as the merged
-      # total. A fork's pull request gets no OIDC token and uploads tokenless instead, which
-      # Codecov accepts for a public repository. An outage at Codecov does not fail the build.
+      # total. Settings are in .github/.codecov.yml.
       - name: Upload unit test coverage to Codecov
         if: ${{ !cancelled() }}
         uses: codecov/codecov-action@v7
@@ -61,7 +56,8 @@ jobs:
           files: coverage/unit/lcov.info
           flags: unit
           disable_search: true
-          use_oidc: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
 
       - name: Upload browser coverage to Codecov
         if: ${{ !cancelled() }}
@@ -70,7 +66,8 @@ jobs:
           files: coverage/e2e/lcov.info
           flags: e2e
           disable_search: true
-          use_oidc: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
 
       - name: Keep the Playwright report
         if: failure()

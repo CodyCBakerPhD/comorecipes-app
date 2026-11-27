@@ -1,0 +1,19 @@
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: once
+  require_changes: true
+  require_base: no
+  require_head: yes
+
+codecov:
+  notify:
+    require_ci_to_pass: yes
+
+coverage:
+  status:
+    project: off
+    patch: off
+
+ignore:
+  - "./tests/"
+  - "./package.json"
