@@ -11,6 +11,9 @@ node_modules/
 /playwright-report-chromatic/
 /test-results/
 
+# Coverage reports (uploaded to Codecov by CI)
+/coverage/
+
 # Storybook builds, and scratch reports such as analyze-duplicates'
 /storybook-static/
 /.tmp/

@@ -1,6 +1,11 @@
 # CoMo Recipes App
 
 <p align="center">
+  <a href="https://codecov.io/gh/CodyCBakerPhD/comorecipes-app"
+    ><img
+      src="https://codecov.io/gh/CodyCBakerPhD/comorecipes-app/graph/badge.svg"
+      alt="Codecov"
+  /></a>
   <a href="https://github.com/CodyCBakerPhD/comorecipes-app/actions/workflows/chromatic-storybook.yml"
     ><img
       src="https://github.com/CodyCBakerPhD/comorecipes-app/actions/workflows/chromatic-storybook.yml/badge.svg"

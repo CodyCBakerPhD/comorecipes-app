@@ -6,10 +6,19 @@
 npm run serve              # the repo over HTTP at http://127.0.0.1:4173/ (the site is at /site/)
 npm run typecheck          # tsc over the site, the scripts, the tests, the stories and configs/
 npm test                   # the data layer, under node:test
+npm run test:coverage      # the same, writing coverage/unit/lcov.info
 npm run test:e2e           # the smoke tests, in Chromium, against tests/fixtures/database.json.gz
+npm run test:e2e:coverage  # the same, writing Chromium's coverage of site/js to coverage/e2e/lcov.info
 npm run storybook          # the component and page stories, live
 npm run test:chromatic     # the page snapshots, in Chromium (nothing is uploaded)
 ```
+
+## Coverage
+
+CI uploads two coverage reports to [Codecov](https://codecov.io/gh/CodyCBakerPhD/comorecipes-app) on every push and pull request, and Codecov merges them.
+The `unit` flag is the unit tests' coverage of the data layer, which is all they load (`bundle.js` and `models.js`).
+The `e2e` flag is Chromium's coverage of all of `site/js` while the smoke tests run, collected by `tests/coverage.js`, since the pages, search, list mode and the shopping list only ever run in a browser.
+The upload authenticates with GitHub's OIDC token, so there is no secret to keep; coverage changes are reported on pull requests but never block one (`codecov.yml`).
 
 ## Visual snapshots
 

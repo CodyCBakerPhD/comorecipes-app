@@ -10,7 +10,9 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.js",
+    "test:coverage": "mkdir -p coverage/unit && node --test --experimental-test-coverage --test-coverage-include=\"site/js/**\" --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/unit/lcov.info tests/*.test.js",
     "test:e2e": "playwright test",
+    "test:e2e:coverage": "COVERAGE=1 playwright test",
     "serve": "node scripts/serve.js",
     "test:chromatic": "playwright test --config configs/playwright.chromatic.config.js",
     "storybook": "storybook dev -p 6006 --config-dir configs/storybook",
@@ -22,6 +24,7 @@
     "@storybook/html-vite": "^10.6.9",
     "@types/node": "^26.6.3",
     "chromatic": "^18.15.3",
+    "monocart-coverage-reports": "^3.3.0",
     "storybook": "^10.6.9",
     "typescript": "^5.9.3"
   }
