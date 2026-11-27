@@ -1,6 +1,6 @@
-/* The few things the old build-time site did not have: the notice shown while the database
-   bundle loads (or when it cannot be), and the line saying which database a page shows.
-   style.css is the old site's stylesheet, copied as is. */
+/* What only the client-rendered site needs: the notice shown while the database bundle loads
+   (or when it cannot be), and the line saying which database a page shows. Everything else,
+   including the markup that layout.js and pages/ produce, is styled by style.css. */
 
 .shell-status {
     max-width: 36rem;
