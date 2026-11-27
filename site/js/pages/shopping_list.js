@@ -11,7 +11,7 @@ import { setUpShoppingList } from "../shopping_list.js";
 /**
  * @returns {import("../layout.js").RenderedPage}
  */
-export function renderShoppingListPage() {
+function renderShoppingListPage() {
     return pageHtml({
         title: "Shopping List · CoMo Recipes",
         body: `    <main class="shopping">
@@ -40,7 +40,7 @@ export function renderShoppingListPage() {
  * @param {Database} database
  * @returns {Record<string, ShoppingRecipe>}
  */
-export function shoppingRecipesByFileStem(database) {
+function shoppingRecipesByFileStem(database) {
     /** @type {Record<string, ShoppingRecipe>} */
     const recipesByFileStem = {};
     for (const [fileStem, recipe] of database.recipes) {

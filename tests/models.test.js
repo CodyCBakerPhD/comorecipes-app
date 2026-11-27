@@ -167,9 +167,9 @@ describe("totalShoppingItems", () => {
     });
 
     it("formats totals per unit, trimming floating point dust", () => {
-        assert.equal(formatTotalAmount(totalByKey.get("olive oil") ?? fail()), "76.3 grams");
-        assert.equal(formatTotalAmount(totalByKey.get("marinara sauce") ?? fail()), "1");
-        assert.equal(formatTotalAmount(totalByKey.get("salt") ?? fail()), "enough");
+        assert.equal(formatTotalAmount(totalByKey.get("olive oil") ?? assert.fail("expected a total")), "76.3 grams");
+        assert.equal(formatTotalAmount(totalByKey.get("marinara sauce") ?? assert.fail("expected a total")), "1");
+        assert.equal(formatTotalAmount(totalByKey.get("salt") ?? assert.fail("expected a total")), "enough");
     });
 
     it("joins measured and unmeasured amounts of the same ingredient", () => {
@@ -201,8 +201,3 @@ describe("bundle bytes", () => {
         assert.throws(() => parseBundle("nonsense"), SyntaxError);
     });
 });
-
-/** @returns {never} */
-function fail() {
-    throw new Error("expected a total");
-}

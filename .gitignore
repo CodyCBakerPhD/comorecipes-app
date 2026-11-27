@@ -1,7 +1,7 @@
 # Node
 node_modules/
 
-# Locally built database bundles (see the README) and the smoke tests' fixtures
+# Database bundles built locally to load with ?bundle=/database.json.gz, and the smoke tests' fixtures
 /database.json
 /database.json.gz
 /tests/fixtures/

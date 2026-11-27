@@ -9,6 +9,7 @@ const PORT = 4173;
 export default defineConfig({
     testDir: "tests",
     testMatch: "**/*.spec.js",
+    globalSetup: "./tests/global_setup.js",
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,

@@ -19,5 +19,5 @@ export function requireElement(selector, root = document) {
  * @returns {HTMLElement[]}
  */
 export function findElements(selector, root = document) {
-    return Array.from(root.querySelectorAll(selector)).filter((element) => element instanceof HTMLElement);
+    return [...root.querySelectorAll(selector)].filter((element) => element instanceof HTMLElement);
 }

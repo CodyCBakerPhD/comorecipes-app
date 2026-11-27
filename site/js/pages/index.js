@@ -42,7 +42,7 @@ function groupByLetter(database) {
  * @param {Database} database
  * @returns {import("../layout.js").RenderedPage}
  */
-export function renderIndexPage(database) {
+function renderIndexPage(database) {
     const itemsByLetter = groupByLetter(database);
 
     const tagButtons = database.tags.map((tag) => {

@@ -1,6 +1,7 @@
 // Fetches the recipe database bundle: the one gzipped JSON file that the database repo
 // publishes after every merge (see scripts/README.md over there). Nothing here knows what
-// is inside the bundle beyond "an object with recipes and ingredients"; models.js does.
+// is inside the bundle beyond "an object with recipes and ingredients, and the commit it was
+// built from"; models.js does.
 
 /** @typedef {import("./models.js").Bundle} Bundle */
 
@@ -19,7 +20,7 @@ const GZIP_MAGIC_BYTES = [0x1f, 0x8b];
  * `window.COMO_BUNDLE_URL` global, then the bundle the database repo publishes.
  * @returns {string}
  */
-export function bundleUrl() {
+function bundleUrl() {
     const parameters = new URLSearchParams(location.search);
     if (parameters.has("bundle")) {
         const requested = parameters.get("bundle") ?? "";
@@ -46,21 +47,12 @@ export function bundleUrl() {
  * @property {"network" | "saved"} source  Fetched just now, or the copy saved the last time a fetch succeeded
  */
 
-/** @type {Map<string, Promise<LoadedBundle>>} */
-const pendingByUrl = new Map();
-
 /**
- * Loads the bundle once per page: every call for the same URL shares one fetch.
- * @param {string} [url]
+ * Loads the bundle the page should show.
  * @returns {Promise<LoadedBundle>}
  */
-export function loadBundle(url = bundleUrl()) {
-    let pending = pendingByUrl.get(url);
-    if (pending == null) {
-        pending = fetchOrRestore(url);
-        pendingByUrl.set(url, pending);
-    }
-    return pending;
+export function loadBundle() {
+    return fetchOrRestore(bundleUrl());
 }
 
 /**
@@ -88,7 +80,7 @@ async function fetchOrRestore(url) {
  * @param {string} url
  * @returns {Promise<Bundle>}
  */
-export async function fetchBundle(url) {
+async function fetchBundle(url) {
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`The database bundle at ${url} answered ${response.status} ${response.statusText}.`);
