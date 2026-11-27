@@ -11,11 +11,18 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.js",
     "test:e2e": "playwright test",
-    "serve": "node scripts/serve.js"
+    "serve": "node scripts/serve.js",
+    "test:chromatic": "playwright test --config configs/playwright.chromatic.config.js",
+    "storybook": "storybook dev -p 6006 --config-dir configs/storybook",
+    "build-storybook": "storybook build --config-dir configs/storybook"
   },
   "devDependencies": {
+    "@chromatic-com/playwright": "^1.1.0",
     "@playwright/test": "^1.63.0",
+    "@storybook/html-vite": "^10.6.9",
     "@types/node": "^26.6.3",
+    "chromatic": "^18.15.3",
+    "storybook": "^10.6.9",
     "typescript": "^5.9.3"
   }
 }

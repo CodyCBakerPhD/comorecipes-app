@@ -6,9 +6,14 @@ node_modules/
 /database.json.gz
 /tests/fixtures/
 
-# Playwright output
+# Playwright output (test-results/ also holds the Chromatic archives)
 /playwright-report/
+/playwright-report-chromatic/
 /test-results/
+
+# Storybook builds, and scratch reports such as analyze-duplicates'
+/storybook-static/
+/.tmp/
 
 # Editors and OS
 .idea/
