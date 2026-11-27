@@ -12,6 +12,10 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # The Codecov upload authenticates with a GitHub OIDC token instead of a stored secret
+      id-token: write
     steps:
       - name: Check out the site
         uses: actions/checkout@v7
@@ -29,7 +33,7 @@ jobs:
         run: npm run typecheck
 
       - name: Test the data layer
-        run: npm test
+        run: npm run test:coverage
 
       # The smoke tests load the pages against the bundle the site itself reads: the one the
       # database repo publishes on its dist branch after every merge.
@@ -42,8 +46,31 @@ jobs:
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
 
+      # Also records Chromium's coverage of site/js (tests/coverage.js): most of the site only
+      # ever runs in a browser, so the unit tests alone reach two of its modules.
       - name: Smoke test the pages in a browser
-        run: npm run test:e2e
+        run: npm run test:e2e:coverage
+
+      # One upload per suite, flagged, so Codecov shows what each covers as well as the merged
+      # total. A fork's pull request gets no OIDC token and uploads tokenless instead, which
+      # Codecov accepts for a public repository. An outage at Codecov does not fail the build.
+      - name: Upload unit test coverage to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7
+        with:
+          files: coverage/unit/lcov.info
+          flags: unit
+          disable_search: true
+          use_oidc: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+
+      - name: Upload browser coverage to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7
+        with:
+          files: coverage/e2e/lcov.info
+          flags: e2e
+          disable_search: true
+          use_oidc: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
 
       - name: Keep the Playwright report
         if: failure()

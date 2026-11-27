@@ -9,6 +9,7 @@ import { gunzipSync } from "node:zlib";
 import { expect, test } from "@playwright/test";
 
 import { buildDatabase, toShoppingRecipe, totalShoppingItems } from "../site/js/models.js";
+import { startCoverage, stopCoverage } from "./coverage.js";
 import { FIXTURE_GZ } from "./global_setup.js";
 
 // global_setup.js has already checked that the fixture is there and written its inflated copy.
@@ -36,9 +37,14 @@ function expectedItemCount(stems) {
 }
 
 test.beforeEach(async ({ page }) => {
+    await startCoverage(page);
     await page.addInitScript((url) => {
         /** @type {any} */ (globalThis).COMO_BUNDLE_URL = url;
     }, BUNDLE_PATH);
+});
+
+test.afterEach(async ({ page }) => {
+    await stopCoverage(page);
 });
 
 test("the index lists every recipe and says which database it shows", async ({ page }) => {
