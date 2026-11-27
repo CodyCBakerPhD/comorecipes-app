@@ -22,7 +22,7 @@
     "@chromatic-com/playwright": "^1.1.0",
     "@playwright/test": "^1.63.0",
     "@storybook/html-vite": "^10.6.9",
-    "@types/node": "^26.6.3",
+    "@types/node": "^26.6.6",
     "chromatic": "^18.15.3",
     "monocart-coverage-reports": "^3.3.0",
     "storybook": "^10.6.9",
