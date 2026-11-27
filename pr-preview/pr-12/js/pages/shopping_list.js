@@ -11,7 +11,7 @@ import { setUpShoppingList } from "../shopping_list.js";
 /**
  * @returns {import("../layout.js").RenderedPage}
  */
-function renderShoppingListPage() {
+export function renderShoppingListPage() {
     return pageHtml({
         title: "Shopping List · CoMo Recipes",
         body: `    <main class="shopping">

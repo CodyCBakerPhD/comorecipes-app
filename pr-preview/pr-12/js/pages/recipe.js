@@ -124,7 +124,7 @@ function notesHtml(recipe) {
  * @param {Database} database
  * @returns {import("../layout.js").RenderedPage}
  */
-function renderRecipePage(fileStem, recipe, database) {
+export function renderRecipePage(fileStem, recipe, database) {
     const componentStems = database.componentRecipes.get(fileStem);
     const ingredientItems = recipe.measurements.map((measurement, index) =>
         ingredientHtml(measurement, componentStems?.get(index), database),
@@ -163,7 +163,7 @@ function renderRecipePage(fileStem, recipe, database) {
  * @param {string} fileStem
  * @returns {import("../layout.js").RenderedPage}
  */
-function renderMissingRecipePage(fileStem) {
+export function renderMissingRecipePage(fileStem) {
     const what = fileStem === "" ? "No recipe was asked for." : `There is no recipe with the id "${escapeHtml(fileStem)}".`;
     return pageHtml({
         title: "Recipe not found · CoMo Recipes",
